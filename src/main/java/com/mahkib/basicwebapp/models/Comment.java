@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @Entity
 @Table
-@EntityListeners({ AuditingEntityListener.class})
+@EntityListeners({AuditingEntityListener.class})
 @Getter
 @Setter
 @ToString

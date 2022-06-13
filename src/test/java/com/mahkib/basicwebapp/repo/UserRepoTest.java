@@ -9,8 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(SpringRunner.class)
@@ -24,8 +22,12 @@ public class UserRepoTest {
     @Autowired
     private UserRepo userRepo;
 
+    public void setTestEntityManager(TestEntityManager testEntityManager) {
+        this.testEntityManager = testEntityManager;
+    }
+
     @Test
-    public void findByUsername_HappyPath_ShouldReturn1User() throws Exception {
+    public void findByUsername_HappyPath_ShouldReturn1User() {
         // Given
         User user = new User();
         user.setUsername("mahkib");
@@ -38,26 +40,27 @@ public class UserRepoTest {
         User actual = userRepo.findByUsername("mahkib");
 
         //Then
-        assertThat(actual).isNotNull();
+        assertNotNull(actual);
     }
 
 
     @Test
-    public void findByUsername_HappyPath_ShouldSave1User() throws Exception {
+    public void findByUsername_HappyPath_ShouldSave1User() {
         // Given
         User user = new User();
         user.setUsername("mahkib");
         user.setPassword("password123");
         user.setRole("USER");
 
-
         //When
-        User actual = userRepo.save("mahkib");
+        userRepo.save(user);
 
         //Then
+        User actual = userRepo.findByUsername("mahkib");
         assertNotNull(actual);
 
 
     }
+
 
 }
